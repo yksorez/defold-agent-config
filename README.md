@@ -4,7 +4,7 @@ An example configuration of `AGENTS.md` and a set of skills (`.agents/`) for AI-
 
 The `.deps/` folder is used by the `defold-project-setup` skill to download project dependency sources and Defold builtins, giving your AI agent easy read-only access to dependency APIs and types. To update it after changing dependencies in `game.project`, run the `defold-project-setup` skill.
 
-Translations: [Русский](README_RU.md)
+Translations: [Русский](README_RU.md) | [中文](README_ZH.md)
 
 ## Supported AI Agents
 
